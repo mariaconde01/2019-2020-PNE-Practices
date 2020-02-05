@@ -5,9 +5,6 @@ print("hello world.  changed")
 print("another print added")
 print("just testing....")
 
-#ex 2
-for i in range(1, 21):  i: 4
-    print(i, end=' ')
 
 
 #ex 3
