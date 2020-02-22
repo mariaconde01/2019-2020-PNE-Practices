@@ -1,4 +1,4 @@
-#ex 3
+#Session 1.Exercise 3
 #calculate the sum of the 20 first integer numbers
 #1 + 2 + 3 +... + 20
 #example working

@@ -1,17 +1,12 @@
-# -- 1 + 2 + 3 + ..... + 20
-# -- 1 + .... + 100
+# Function for calculating the sum of the
+# N first integer numbers
 
 
 def sumn(n):
-    res20 = 0
+    res = 0
     for i in range(1, n+1):
-        res20 += i
+        res += i
     return res
-res100 = 0
 
-for i in range(1, 101):
-    res100 += i
-
-
-print("sum of 1-20 ", sumn(20))
-print("sum of 1-100 ", sumn(100))
+print("The sum of the first 20 numbers is:", sumn(20))
+print("The sum of the first 100 numbers is: ", sumn(100))
