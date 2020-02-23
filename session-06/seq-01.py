@@ -1,26 +1,28 @@
-class seq:
-    """a class for representing sequence objects"""
+
+class Seq:
+    """A class for representing sequence objects"""
     def __init__(self, strbases):
         self.strbases = strbases
         print("New sequence created!")
-    def __str__ (self):
+
+
+    def __str__(self):
         return self.strbases
-    def len(self):
+
+    def __len__(self):
         return len(self.strbases)
 
-
-
-
+class Gene(Seq):
     pass
 
-class Gene(seq):
-    pass
 
-# -- Main program
-s1=seq("AAACGTC")
-g= Gene("ACCTGA")
-print(f"sequence 1: {s1}") #la f significa formato en string
-print(f"sequence 2: {g}")
+# Main program
+s1 = Seq("AACGTC")
+g = Gene("AACTGA")
+print(f"Sequence 1: {s1}")  #la f significa formato en string
+print(f"Sequence 2: {g.len()}")
 
 print(f"The length of the sequence 1 is {s1.len()}")
 print(f"The length of the sequence 2 is {g.len()}")
+
+print("Testing objects...")
