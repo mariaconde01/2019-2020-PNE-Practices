@@ -1,5 +1,6 @@
 #Write a program that opens the dna.txt file
 # calculates the total number of bases, and the number of the different bases
+
 f = open("dna.txt", 'r')
 file2 = f.read()
 seq = file2.strip('\n')
@@ -18,7 +19,7 @@ for i in seq:
     elif i == "C":
         count_C += 1
     elif i == "T":
-        countT += 1
+        count_T += 1
     else:
         count_G += 1
 
