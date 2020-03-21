@@ -1,3 +1,4 @@
 from seq0 import *
-print("calling ping...")
-seq_ping()
+
+print("Testing seq_ping function...")
+print(seq_ping())

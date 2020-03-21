@@ -1,20 +1,22 @@
 from pathlib import Path
 
-
 def seq_ping():
-    print("Ok!")
-
+    print("OK")
 
 
 def seq_read_fasta(filename):
 
-    file_contents = Path(filename).read_text()
-    seq_dna = file_contents
-    index_finish = seq_dna.find("\n")
-    seq_dna = seq_dna[index_finish + 1 ]
-    seq_dna = seq_dna.replace("\n", "")
-    seq_dna = seq_dna[:20]
+    file_contents = Path(filename).read_text().split("\n")[1:]
+    seq_dna = Path(filename).join(contents)
     return seq_dna
 
+#Read a file with a DNA sequence in FASTA format
+#eliminates the head part to leave only the body part
+#eliminate blank spaces
+#return the body part as a string
 
-print(seq_read_fasta("U5.txt"))
+def seq_len(seq):
+    length=len(seq)
+    return(length)
+
+
