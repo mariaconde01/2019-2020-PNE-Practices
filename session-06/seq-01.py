@@ -1,28 +1,58 @@
 
 class Seq:
     """A class for representing sequence objects"""
-    def __init__(self, strbases):
+    def __init__(self, strbases):   #Initialize the sequence with the value
+                                    # passed as argument when creating the object
         self.strbases = strbases
         print("New sequence created!")
 
 
     def __str__(self):
+        """Method called when the object is being printed"""
+
+        # -- We just return the string with the sequence
         return self.strbases
 
     def __len__(self):
+        """Calculate the length of the sequence"""
         return len(self.strbases)
 
+    def len(self):
+        return len(self.strbases)  # --- Programa principal
+
+
+# --- Main program
+s1 = Seq("AGTACACTGGT")
+s2 = Seq("CGTAAC")
+
+# -- Printing the objects
+print(f"Sequence 1: {s1}")           #la f significa formato en string
+print(f"  Length: {s1.len()}")
+print(f"Sequence 2: {s2}")
+print(f"  Length: {s2.len()}")
+
+
 class Gene(Seq):
-    pass
+    """This class is derived from the Seq Class
+       All the objects of class Gene will inheritate
+       the methods from the Seq class
+    """
+    def __init__(self, strbases, name=""):
 
+        # -- Call first the Seq initilizer and then the
+        # -- Gene init method
+        super().__init__(strbases)
+        self.name = name
+        print("New gene created")
 
-# Main program
-s1 = Seq("AACGTC")
-g = Gene("AACTGA")
-print(f"Sequence 1: {s1}")  #la f significa formato en string
-print(f"Sequence 2: {g.len()}")
+    def __str__(self):
+        """Print the Gene name along with the sequence"""
+        return self.name + "-" + self.strbases  #para que no solo devuelva la sequencia sino tambien el nombre del gen
 
-print(f"The length of the sequence 1 is {s1.len()}")
-print(f"The length of the sequence 2 is {g.len()}")
+# --- Main program
+s1 = Seq("AGTACACTGGT")
+g = Gene("CGTAAC", "FRAT1")
 
-print("Testing objects...")
+# -- Printing the objects
+print(f"Sequence 1: {s1}")
+print(f"Gene: {g}")
