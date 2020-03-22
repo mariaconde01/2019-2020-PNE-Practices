@@ -1,7 +1,7 @@
 from pathlib import Path
 
 def seq_ping():
-    print("OK")
+    return("OK")
 
 
 def seq_read_fasta(filename):
@@ -23,6 +23,6 @@ def seq_count_base(seq, base):
     counter= 0
     for element in seq:
         if element == base:
-            count = counter + 1
+            counter = counter + 1
     return counter
 
