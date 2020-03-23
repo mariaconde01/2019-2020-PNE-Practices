@@ -1,14 +1,13 @@
 from pathlib import Path
 
 def seq_ping():
-    return("OK")
-
+    print("OK")
 
 def seq_read_fasta(filename):
-
-    file_contents = Path(filename).read_text().split("\n")[1:]
-    seq = Path(filename).join(contents)
-    return seq
+   file_contents = Path(filename).read_text()
+   file = file_contents.split('\n')
+   body = "".join(file[1:])
+   return(body)
 
 #Read a file with a DNA sequence in FASTA format
 #eliminates the head part to leave only the body part
@@ -16,8 +15,10 @@ def seq_read_fasta(filename):
 #return the body part as a string
 
 def seq_len(seq):
-    length=len(seq)
-    return(length)
+        counter = 0
+        for element in seq:
+            counter += 1
+        return counter
 
 def seq_count_base(seq, base):
     counter= 0
