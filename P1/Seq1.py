@@ -45,5 +45,12 @@ class Seq:
                     if character == base:
                         counter += 1
                 return counter
+    def __reverse__(self):
+        if self.strbases == self.NULL:
+            print("NULL")
+        elif self.strbases == self.ERROR:
+            print("ERROR")
+        if self.strbases == self.strbases:
+            return s1
 
 

@@ -11,7 +11,7 @@ s1 = Seq("ACTGA")
 # - Crear una secuencia inválida
 s2 = Seq ("INVALID SEQUENCE " )
 
-# - crear lista con caracteres correctos
+# - crear lista con bases correctas
 list_base = ["A", "C", "T", "G"]
 
 # -- Printing the objects
