@@ -45,3 +45,9 @@ def seq_complement (seq):
     for element in seq:
         comp_bases += bases[element]
     return comp_bases
+
+def processing_genes(seq):
+
+    dict_base= seq_count(seq)
+    max_base= max(dict_base, key=dict_base.get) #la funcion get te encuentra la base mas frecuente
+    return max_base
