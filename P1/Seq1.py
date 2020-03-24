@@ -53,4 +53,11 @@ class Seq:
         if self.strbases == self.strbases:
             return s1
 
+    def count(self):
 
+        bases = ["A", "T", "C", "G"]
+        count_bases = []
+        for element in bases:
+            count_bases.append(self.count_base(element))
+        dictionary = dict(zip(bases, count_bases))
+        return dictionary
