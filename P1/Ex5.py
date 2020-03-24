@@ -16,14 +16,14 @@ list_base = ["A", "C", "T", "G"]
 
 # -- Printing the objects
 
-print(f"Sequence 0: (Length: {s0.len()}) {s0}")
+print(f"\nSequence 0: (Length: {s0.len()}) {s0}")
 for base in list_base:
     print(base, ":", s0.count_base(base), end=" ,")
 
-print(f"\n Sequence 1: (Length: {s1.len()}) {s1}")
+print(f"\nSequence 1: (Length: {s1.len()}) {s1}")
 for base in list_base:
     print(base, ":", s1.count_base(base), end=" ,")
 
-print(f"\n Sequence 2: (Length: {s2.len()}) {s2}")
+print(f"\nSequence 2: (Length: {s2.len()}) {s2}")
 for base in list_base:
     print(base, ":", s2.count_base(base), end=" ,")
