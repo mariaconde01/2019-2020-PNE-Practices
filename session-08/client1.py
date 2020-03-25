@@ -9,7 +9,8 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 #ESTABLISHING THE CONNECTION WITH THE SERVER
 s.connect((IP, PORT))
 
-#send data to the server
+# Send data. No strings can be send, only bytes
+# It necesary to encode the string into bytes
 s.send(str.encode("."))
 
 #receive data from the server

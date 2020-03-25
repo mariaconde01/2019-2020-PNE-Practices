@@ -1,22 +1,21 @@
 import socket
 
-IP = "212.128.253.128"
+# SERVER IP, PORT
 PORT = 8080
-message = input("Enter a message:")
+IP = "212.128.253.173"
 
-#WE CREATE THE SOCKET
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+while True:
+    # -- Ask the user for a message
+    m = input("Message to send: ")
 
-#ESTABLISHING THE CONNECTION WITH THE SERVER
-s.connect((IP, PORT))
+    # -- Create the socket
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-#send data to the server
-s.send(str.encode(message))
+    # Establish the connection to the Server (IP, PORT)
+    s.connect((IP, PORT))
 
-#receive data from the server
-msg = s.recv(2000)
+    # Send data
+    s.send(str.encode(m))
 
-print("Message from the server: \n")
-print(msg.decode("utf-8"))
-#closing the connection
-s.close()
+    # Closing the socket
+    s.close()
