@@ -5,6 +5,7 @@ filename = ".txt"
 
 gene_list =["U5", "ADA", "FRAT1", "FXN", "RNU6_269P"]
 base_list=["A", "C", "T", "G"]
+
 print("-----| Exercise 8 |------")
 
 for element in gene_list:  #elemento es U5,ADA..
