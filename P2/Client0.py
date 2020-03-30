@@ -1,5 +1,7 @@
+import socket
+
 #clase para enviar mensajes fácilmente al servidor
-# #innit function
+#innit function
 
 class Client:
     def __init__(self, IP, PORT):
@@ -7,7 +9,7 @@ class Client:
         self.PORT=PORT
 
     def ping(self):
-        print("Ok")
+        print("Ok!")
 
     def __str__(self):
         return (f"Connection to SERVER at {self.IP}, PORT: {self.PORT}")
@@ -29,4 +31,13 @@ class Client:
         s.close()
 
         # Return the response
-        return (f"Response: {response}")
+        return response
+
+    def debug_talk(self, msg):
+
+        message = str(msg)
+        response = self.talk(msg)
+        print("To server:", end="")
+        termcolor.cprint(msg, "blue")
+        print(f"from server")
+        termcolor.cprint(self.talk(msg), "green")

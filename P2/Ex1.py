@@ -12,7 +12,7 @@ PORT ="8080"
 # -- Create a client object
 c = Client(IP, PORT)
 
-# -- Test the ping method
+# -- Test the ping method #probar si está conectado a Internet o no utilizando el comando ping
 c.ping()
 
 # -- Print the IP and PORTs
