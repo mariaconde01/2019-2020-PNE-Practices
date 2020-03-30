@@ -10,4 +10,3 @@ def fibon(n):
 print("5th fibonacci term is", fibon(5))
 print("10th fibonacci term is", fibon(10))
 print("15th fibonacci term is", fibon(15))
-
