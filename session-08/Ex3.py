@@ -6,7 +6,7 @@ IP = "212.128.253.173"
 
 while True:
     # -- Ask the user for a message
-    m = input("Message to send: ")
+    m = input("Enter a message: ")
 
     # -- Create the socket
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
