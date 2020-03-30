@@ -7,4 +7,5 @@ FILENAME = "RNU6_269P.txt"
 file_contents = Path(FILENAME).read_text()
 
 # -- Print the contents on the console
-print(file_contents.split("\n")[0])
+file_contents=file_contents.split("\n")[0]
+print("First line of the RNU6_269P.txt file: \n", file_contents)

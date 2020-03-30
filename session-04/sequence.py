@@ -3,7 +3,6 @@
 
 from pathlib import Path
 
-
 FILENAME = "ADA.txt"
 file_contents = Path(FILENAME).read_text()
 
@@ -12,5 +11,3 @@ string = " "
 string = string.join(body).replace(" ", "")
 
 print(len(string))
-string = " "
-string = string.join(body).replace(" ", "")

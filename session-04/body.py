@@ -7,7 +7,7 @@ FILENAME = "U5.txt"
 file_contents = Path(FILENAME).read_text()
 
 body = file_contents.split("\n")[1:]
-string = " "
-string = string.join(body).replace(" ", "")
+string =""
+string =("\n").join(body).replace("","") #("\n") en vez de string para hacer que no este tod en 1 sola linea
 
-print("Body of the ud.txt file : \n", string)
+print("Body of the ud.txt file :\n",string)
