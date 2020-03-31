@@ -24,7 +24,7 @@ def seq_count_base(seq, base):
     counter= 0
     for element in seq:
         if element == base:
-            counter = counter + 1
+            counter+=1
     return counter
 
 def seq_count(seq):

@@ -3,7 +3,7 @@ from seq0 import *
 folder = "../SESSION-04/"
 filename = ".txt"
 
-gene_list=["ADA", "FRAT1", "FXN","U5", "RNU6_269P"]
+gene_list=["U5","ADA", "FRAT1", "FXN", "RNU6_269P"]
 base_list=["A", "C", "T", "G"]
 print("-----| Exercise 4 |------")
 
