@@ -8,6 +8,6 @@ base_list=["A", "C", "T", "G"]
 
 print("-----| Exercise 8 |------")
 
-for element in gene_list:  #elemento es U5,ADA..
+for element in gene_list:  #elemento es U5,FRAT..
     dna_seq = seq_read_fasta(folder + element + filename)
     print( "Gene", element, ":", "Most frequent Base:", processing_genes(dna_seq))
