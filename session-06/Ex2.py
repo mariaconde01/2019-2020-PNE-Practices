@@ -17,13 +17,11 @@ class Seq:
     def len(self):
         return len(self.strbases)
 
-#main program
 def print_seqs(seq_list):
     index = 0
     for element in seq_list:
-        print(f"Sequence {index}: (Lenght {element.len()}) {element}")
-        index+=1
-
+        print(f"Sequence {index}: (Length: {element.len()}) {element}")
+        index += 1
 
 seq_lists = [Seq("ACT"), Seq("GATA"), Seq("CAGATA")]
 print_seqs(seq_lists)

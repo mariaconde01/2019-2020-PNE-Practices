@@ -1,4 +1,4 @@
-import termcolor
+import  termcolor
 
 #Pycharm does not know anything about the termcolor module por eso esta en rojo
 #hay que importarlo

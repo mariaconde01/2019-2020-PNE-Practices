@@ -4,7 +4,7 @@ class Seq:
     def __init__(self, strbases):   #Initialize the sequence with the value
                                     # passed as argument when creating the object
         self.strbases = strbases
-        print("New sequence created!")
+        print("New sequence created!")   #strbases es el primer parametro que se imprime en s1 o s2 (objetos)
 
 
     def __str__(self):

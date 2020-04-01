@@ -15,8 +15,6 @@ class Seq:
             self.strbases = strbases
             print("ERROR!!")
 
-
-
     def __str__(self):
         return self.strbases
 

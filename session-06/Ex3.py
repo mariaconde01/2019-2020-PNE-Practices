@@ -18,20 +18,26 @@ class Seq:
     def len(self):
         return len(self.strbases)
 
-#main program
 def print_seqs(seq_list):
     index = 0
     for element in seq_list:
-        print(f"Sequence {index}: (Lenght {element.len()}) {element}")
-        index+=1
-seq_lists = [Seq("ACT"), Seq("GATA"), Seq("CAGATA")]
-print_seqs(seq_lists)
+        print(f"Sequence {index}: (Length: {element.len()}) {element}")
+        index += 1
 
-def generate_seqs(patron, number):
-seq_list1 = generate_seqs(" A ", 3)
-seq_list2 = generate_seqs(" AC ", 5)
+def generate_seqs(pattern, number):
+    list=[]
+    for element in range(1, number+1):
+        sequence=pattern*element
+        list.append(Seq(sequence))
+    return list
 
-print(" List 1: ")
+#main program
+seq_list1 = generate_seqs("A",3)
+seq_list2 = generate_seqs("AC",5)
+
+print("List 1:")
 print_seqs(seq_list1)
-print(" List 2: ")
+
+print()
+print("List 2:")
 print_seqs(seq_list2)
