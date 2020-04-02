@@ -1,7 +1,9 @@
 import socket
+import termcolor
 
-IP= "212.128.253.175"
-PORT= 8081
+
+IP = "192.168.1.149"
+PORT =8080
 
 #step 1: creating the socket
 ls=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -19,6 +21,7 @@ ls.listen()
 print("Server is configured")
 
 while True:
+    print("Waiting for Clients to connect")
     try:
         # step 4: wait for client to connect
         (cs, client_ip_port) = ls.accept()
@@ -27,14 +30,18 @@ while True:
         ls.close()
         exit()
     else:
+        print("A client has connected to the server!")
+
         # step 5: receiving info from the clinet
         msg_raw = cs.recv(2000)
         msg = msg_raw.decode()
 
-        print(f"received message: {msg}")
+        print(f" Received message: ", end="")
+        termcolor.cprint(msg, "green")
 
-        # step 6: send a response message to the client
-        response = f"ECHO: {msg} \n"
+        # --- Step 6: Send a response message to the client
+        response = "ECHO:" + msg
+
         cs.send(response.encode())
 
         cs.close()

@@ -1,9 +1,7 @@
 import socket
 
-IP= "212.128.253.175"
-PORT= 8082
-count=0
-ip_client_list=[]
+IP = "192.168.1.149"
+PORT =8080
 
 #step 1: creating the socket
 ls=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -19,27 +17,41 @@ ls.bind((IP, PORT))
 ls.listen()
 
 print("Server is configured")
+count=0
+ip_client_list=[]
 
-while True count < 5:
-    try:
-        # step 4: wait for client to connect
-        (cs, client_ip_port) = ls.accept()
-    except KeyboardInterrupt:
-        print("Server is done")
-        ls.close()
-        exit()
-    else:
-        # step 5: receiving info from the clinet
-        msg_raw = cs.recv(2000)
-        msg = msg_raw.decode()
-        count +=1
+while True:
+        # -- Wait for a client to connect
+        print("Waiting for Clients to connect")
+        try:
+            (cs, client_ip_port) = ls.accept()
 
-        print("connection", count)
-        print("received message: {msg}")
-        print("client_IP_PORT:", client_ip_port)
+        except KeyboardInterrupt:
+            print("Server is done")
+            ls.close()
+            exit()
 
-        # step 6: send a response message to the client
-        response = f"ECHO: {msg} \n"
-        cs.send(response.encode())
+        else:
+            count +=1
+            print(f"CONNECTION {connection_counter}. Client IP, PORT: {client_ip_port}")
+            clients_list.append(client_ip_port)
 
-        cs.close()
+            msg_raw = cs.recv(2000)
+            msg = msg_raw.decode()
+
+            print(f" Received message: ", end="")
+            termcolor.cprint(msg, "green")
+
+
+            # step 6: send a response message to the client
+            response = "ECHO: " + msg
+            cs.send(response.encode())
+
+            if connection_counter == 5:
+                print("The following clients has connected to the server: ")
+                clients = 0
+                for i in clients_list:
+                    print(f"Client {clients}: {clients_list[connection_counter - 1]}")
+                    clients += 1
+
+            cs.close()

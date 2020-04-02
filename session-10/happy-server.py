@@ -1,39 +1,44 @@
 import socket
 
-IP= "212.128.253.175"
-PORT= 8080
+IP = "192.168.1.149"
+PORT =8080
 
-#step 1: creating the socket
-ls=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# --- Step 1: creating the socket
+ls = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # -- Optional: This is for avoiding the problem of Port already in use
 ls.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
-#step 2: bind the socket to the servers ip adress and port
+# --- Step 2: Bind the socket to the server's IP and PORT
 ls.bind((IP, PORT))
 
-
-#step 3: convert into a listening socket
+# --- Step 3: Convert into a listening socket
 ls.listen()
 
-print("Server is configured")
+print('The Server is configured!!')
 
 while True:
+    # -- Waits for a client to connect
+    print("Waiting for Clients to connect")
+
     try:
-        # step 4: wait for client to connect
+        # --- Step 4: Wait for clients tro connect
         (cs, client_ip_port) = ls.accept()
     except KeyboardInterrupt:
-        print("Server is done")
+        print("Server is done!")
         ls.close()
-else:
-    # step 5: receiving info from the clinet
-    msg_raw = cs.recv(2000)
-    msg = msg_raw.decode()
+        exit()
+    else:
+        print("A client has connected to the server!")
+        # --- Step 5: Receiving information from the client
+        msg_raw = cs.recv(2000)
+        msg = msg_raw.decode()
 
-    print(f"received message: {msg}")
+        print(f" Received message: {msg}")
 
-    # step 6: send a response message to the client
-    response = "hi i am a happy server \n"
-    cs.send(response.encode())
+        # --- Step 6: Send a response message to the client
+        response = "Hi! I am a happy server :-)\n"
+        cs.send(response.encode())
 
-    cs.close()
+        cs.close()
+
