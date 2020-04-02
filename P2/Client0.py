@@ -1,20 +1,22 @@
 import socket
+import termcolor
+
 
 #clase para enviar mensajes fácilmente al servidor
-#innit function
 
 class Client:
     def __init__(self, IP, PORT):
         self.IP=IP
-        self.PORT=PORT
+        self.PORT=int(PORT)
 
     def ping(self):
         print("Ok!")
 
     def __str__(self):
-        return (f"Connection to SERVER at {self.IP}, PORT: {self.PORT}")
+        return "Connection to SERVER at " + self.IP + " , PORT: " + str(self.PORT)
 
     def talk(self, msg):
+
         # -- Create the socket
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -34,10 +36,14 @@ class Client:
         return response
 
     def debug_talk(self, msg):
-
         message = str(msg)
         response = self.talk(msg)
-        print("To server:", end="")
-        termcolor.cprint(msg, "blue")
-        print(f"from server")
-        termcolor.cprint(self.talk(msg), "green")
+        print("To Server: ", end="")
+        termcolor.cprint(message, "blue")
+        print("From Server: ", end="")
+        termcolor.cprint(response, "green")
+
+
+
+
+
