@@ -1,4 +1,5 @@
 import socket
+import termcolor
 
 IP = "192.168.1.149"
 PORT =8080
@@ -17,7 +18,7 @@ ls.bind((IP, PORT))
 ls.listen()
 
 print("Server is configured")
-count=0
+c_counter=0
 ip_client_list=[]
 
 while True:
@@ -32,26 +33,24 @@ while True:
             exit()
 
         else:
-            count +=1
-            print(f"CONNECTION {connection_counter}. Client IP, PORT: {client_ip_port}")
-            clients_list.append(client_ip_port)
+            c_counter +=1
+            print(f"CONNECTION {c_counter}. Client IP, PORT: {client_ip_port}")
+            ip_client_list.append(client_ip_port)
 
             msg_raw = cs.recv(2000)
             msg = msg_raw.decode()
 
-            print(f" Received message: ", end="")
+            print(f" Message received: ", end="")
             termcolor.cprint(msg, "green")
 
-
-            # step 6: send a response message to the client
             response = "ECHO: " + msg
             cs.send(response.encode())
 
-            if connection_counter == 5:
+            if c_counter == 5:
                 print("The following clients has connected to the server: ")
                 clients = 0
-                for i in clients_list:
-                    print(f"Client {clients}: {clients_list[connection_counter - 1]}")
+                for i in ip_client_list:
+                    print(f"Client {clients}: {ip_client_list[c_counter - 1]}")
                     clients += 1
 
             cs.close()

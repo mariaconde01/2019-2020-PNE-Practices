@@ -38,7 +38,7 @@ while True:
         msg_raw = cs.recv(2000)
         msg = msg_raw.decode()
 
-        print(f" Received message: ", end="")
+        print(f" Message received: ", end="")
         termcolor.cprint(msg, "green")
 
         # step 6: send a response message to the client

@@ -1,7 +1,6 @@
 import socket
 import termcolor
 
-
 IP = "192.168.1.149"
 PORT =8080
 
