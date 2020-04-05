@@ -3,14 +3,14 @@ from termcolor import colored
 from Seq1 import Seq
 
 #GET function
-list_seq=["ACGCCTAGTCA","ACTGAATGGACTCAG","TTGCATGGCAAGCT","CGGTAAGCTACG","GTCCGAATGCAT"]
-def GET_FUNCTION(n):
+SEQ_list=["ACGCCTAGTCA","ACTGAATGGACTCAG","TTGCATGGCAAGCT","CGGTAAGCTACG","GTCCGAATGCAT"]
+def GET(seq_n):
     for i in list_seq:
-        if n ==list_seq.index(i):
+        if seq_n ==list_seq.index(i):
             return i
 #INFO function
-BASE_list=["A","C","T","G"]
-def INFO_FUNCTION(seq):
+BASE_list=["A","C","G","T"]
+def INFO(seq):
     seq= Seq(seq)
     return seq.count(BASE_list)
 
@@ -19,7 +19,7 @@ def INFO_FUNCTION(seq):
 # Configure the Server's IP and PORT
 PORT = 8080
 IP = "127.0.0.1"
-list_seq=["ACGCCTAGTCA","ACTGAATGGACTCAG","TTGCATGGCAAGCT","CGGTAAGCTACG","GTCCGAATGCAT"]
+list_seq=["ATCGAATGAC","CTGGATACG","TAGTCAAGCT","AATGTAGCA","GTGACCTACG"]
 # -- Step 1: create the socket
 ls = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # -- Optional: This is for avoiding the problem of Port already in use
@@ -69,17 +69,17 @@ while True:
             cs.close()
         elif msg.split(" ")[0]=="GET":
             print(colored("GET COMMAND", "green"))
-            n= int(msg.split(" ")[1])
-            response= GET_FUNCTION(n)
-            cs.send(response.encode())
+            seq= int(msg.split(" ")[1])
+            res= GET(seq)
+            cs.send(res.encode())
             cs.close()
         elif msg.split(" ")[0]=="INFO":
             print(colored("INFO COMMAND", "green"))
-            n = msg.split(" ")[1]
-            response = INFO_FUNCTION(n)
+            seq = msg.split(" ")[1]
+            res = INFO(seq)
             [[key, value]] = ((str(key), str(value)) for key, value in response.items())
-            response= key + ":" + value
-            cs.send(response.encode())
+            final_res= key + ":" + value
+            cs.send(final_res.encode())
             cs.close()
 
 
