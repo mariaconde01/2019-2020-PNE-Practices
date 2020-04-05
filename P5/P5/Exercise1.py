@@ -10,11 +10,11 @@ PORT = 8080
 socketserver.TCPServer.allow_reuse_address = True
 
 
-def read_file(filename):  # read_file() is the function read_fasta_data() from other practice
+def reading_file(filename):  # read_file() is the function read_fasta_data() from other practice
     # -- Open and read the file
-    file_contents = pathlib.Path(filename).read_text().split("\n")[1:]
-    body = "".join(file_contents)
-    return body
+    content = pathlib.Path(filename).read_text().split("\n")[1:]
+    content = "".join(content)
+    return content
 
 
 # Class with our Handler. It is a called derived from BaseHTTPRequestHandler
@@ -32,7 +32,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         # Modifications for Practice 5
 
         # Message to send back to the client:
-        FOLDER = r"C:\Users\jesus.diaz\PycharmProjects\2019-2020-PNE-Practices\P5"
+        FOLDER = 
         if self.path == "/" or self.path == "/index.html":
             file = "\index.html"
             # Generating the response message
@@ -40,17 +40,17 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             file = self.path
 
         try:
-            contents = read_file(FOLDER + file)  # read_file() is the function read_fasta_data() from other practice
+            content = reading_file(FOLDER + file)  # read_file() is the function read_fasta_data() from other practice
             # Generating the response message
             self.send_response(200)  # -- Status line: OK!
         except FileNotFoundError:
-            contents = read_file(FOLDER + "\error.html")
+            content = reading_file(FOLDER + "\error.html")
             # Generating the response message
             self.send_response(404)  # -- Status line: ERROR NOT FOUND
 
         # Define the content-type header:
         self.send_header('Content-Type', 'text/html')  # Changed form text\plain to text text\html
-        self.send_header('Content-Length', len(contents.encode()))
+        self.send_header('Content-Length', len(content.encode()))
 
         # ----------------------------------------------------------------------------------
 
@@ -58,7 +58,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         self.end_headers()
 
         # Send the response message
-        self.wfile.write(contents.encode())
+        self.wfile.write(content.encode())
 
         return
 
