@@ -2,7 +2,6 @@ import http.server
 import pathlib
 import socketserver
 
-
 # Define the Server's port
 PORT = 8080
 
