@@ -9,10 +9,10 @@ PORT = 8080
 
 # -- This is for preventing the error: "Port already in use"
 socketserver.TCPServer.allow_reuse_address = True
-SEQ_GET = ["ACCTCCTCTCCAGCAATGCCAACCCCAGTCCAGGCCCCCATCCGCCCAGGATCTCGATCA","AAAAACATTAATCTGTGGCCTTTCTTTGCCATTTCCAACTCTGCCACCTCCATCGAACGA","CAAGGTCCCCTTCTTCCTTTCCATTCCCGTCAGCTTCATTTCCCTAATCTCCGTACAAAT","CCCTAGCCTGACTCCCTTTCCTTTCCATCCTCACCAGACGCCCGCATGCCGGACCTCAAA","AGCGCAAACGCTAAAAACCGGTTGAGTTGACGCACGGAGAGAAGGGGTGTGTGGGTGGGT"]
+GET_Seq = ["ACCTCCTCTCCAGCAATGCCAACCCCAGTCCAGGCCCCCATCCGCCCAGGATCTCGATCA","AAAAACATTAATCTGTGGCCTTTCTTTGCCATTTCCAACTCTGCCACCTCCATCGAACGA","CAAGGTCCCCTTCTTCCTTTCCATTCCCGTCAGCTTCATTTCCCTAATCTCCGTACAAAT","CCCTAGCCTGACTCCCTTTCCTTTCCATCCTCACCAGACGCCCGCATGCCGGACCTCAAA","AGCGCAAACGCTAAAAACCGGTTGAGTTGACGCACGGAGAGAAGGGGTGTGTGGGTGGGT"]
 
 FOLDER = 
-EXT = ".txt"
+txt = ".txt"
 
 
 # Class with our Handler. It is a called derived from BaseHTTPRequestHandler
@@ -34,19 +34,19 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         # Read the arguments
         arguments = path.split('?')
 
-        # Get the verb. It is the first argument
-        verb = arguments[0]
+        # Get the option. It is the first argument
+        option = arguments[0]
 
         # -- Content type header
         # -- Both, the error and the main page are in HTML
         contents = Path('error.html').read_text()
-        error_code = 404
-        if verb == "/":
+        code = 404
+        if option == "/":
             # Open the form1.html file
             # Read the index from the file
             contents = Path('form-4.html').read_text()
-            error_code = 200
-        elif verb == "/ping":
+            code = 200
+        elif option == "/ping":
             contents = """
                     <!DOCTYPE html>
                     <html lang = "en">
@@ -61,18 +61,18 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                     </body>
                     </html>
                     """
-            error_code = 200
-        elif verb == "/get":
+            code = 200
+        elif option == "/get":
             # -- Get the argument to the right of the ? symbol
-            pair = arguments[1]
+            pair1 = arguments[1]
             # -- Get all the pairs name = value
-            pairs = pair.split('&')
+            pair2 = pair1.split('&')
             # -- Get the two elements: name and value
-            name, value = pairs[0].split("=")
+            name, value = pair2[0].split("=")
             n = int(value)
 
             # -- Get the sequence
-            seq = SEQ_GET[n]
+            seq = GET_seq[n]
 
             # -- Generate the html code
             contents = f"""
@@ -89,17 +89,17 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                 </body>
                                 </html>
                                 """
-            error_code = 200
-        elif verb == "/gene":
+            code = 200
+        elif option == "/gene":
             # -- Get the argument to the right of the ? symbol
-            pair = arguments[1]
+            pair1 = arguments[1]
             # -- Get all the pairs name = value
-            pairs = pair.split('&')
+            pair2 = pair1.split('&')
             # -- Get the two elements: name and value
-            name, gene = pairs[0].split("=")
+            name, gene = pair2[0].split("=")
 
             s = Seq()
-            FILENAME= FOLDER + "\\" + gene + EXT
+            FILENAME= FOLDER + "\\" + gene + txt
             s1= Seq(s.read_fasta(FILENAME))
             gene_str = str(s1)
             # -- Generate the html code
@@ -119,33 +119,33 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                 </body>
                                 </html>
                                 """
-            error_code = 200
-        elif verb == "/operation":
+            code = 200
+        elif option == "/operation":
             # -- Get the argument to the right of the ? symbol
-            pair = arguments[1]
+            pair1 = arguments[1]
             # -- Get all the pairs name = value
-            pairs = pair.split('&')
+            pair2 = pair1.split('&')
             # -- Get the two elements: name and value
-            name, seq = pairs[0].split("=")
+            name, seq = pair2[0].split("=")
             # -- Get the two elements of the operation
-            name, op = pairs[1].split("=")
+            name, op = pair2[1].split("=")
 
             # -- Create the sequence
             s = Seq(seq)
 
-            if op == "comp":
+            if option2 == "comp":
                 result = s.complement()
-            elif op == "rev":
+            elif option2 == "rev":
                 result = s.reverse()
             else:
-                sl = s.len()
-                ca = s.count_base('A')
+                len = s.len()
+                count_A = s.count_base('A')
                 pa = "{:.1f}".format(100 * ca / sl)
-                cc = s.count_base('C')
+                count_C = s.count_base('C')
                 pc = "{:.1f}".format(100 * cc / sl)
-                cg = s.count_base('G')
+                count_G = s.count_base('G')
                 pg = "{:.1f}".format(100 * cg / sl)
-                ct = s.count_base('T')
+                count_T = s.count_base('T')
                 pt = "{:.1f}".format(100 * ct / sl)
 
                 result = f"""
@@ -175,10 +175,10 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                 </body>
                                 </html>
                                 """
-            error_code = 200
+            code = 200
 
             # Generating the response message
-        self.send_response(error_code)  # -- Status line: OK!
+        self.send_response(code)  # -- Status line: OK!
 
         # Define the content-type header:
         self.send_header('Content-Type', 'text/html')
