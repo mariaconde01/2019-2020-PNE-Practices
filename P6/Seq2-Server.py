@@ -140,13 +140,13 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             else:
                 len = s.len()
                 count_A = s.count_base('A')
-                pa = "{:.1f}".format(100 * ca / sl)
+                percentage_a = "{:.1f}".format(100 * ca / sl)
                 count_C = s.count_base('C')
-                pc = "{:.1f}".format(100 * cc / sl)
+                percentage_c = "{:.1f}".format(100 * cc / sl)
                 count_G = s.count_base('G')
-                pg = "{:.1f}".format(100 * cg / sl)
+                percentage_g = "{:.1f}".format(100 * cg / sl)
                 count_T = s.count_base('T')
-                pt = "{:.1f}".format(100 * ct / sl)
+                percentage_t = "{:.1f}".format(100 * ct / sl)
 
                 result = f"""
                         <p>Total length: {sl}</p>
