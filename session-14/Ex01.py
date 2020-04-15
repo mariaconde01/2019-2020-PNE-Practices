@@ -1,20 +1,11 @@
 import http.server
-import pathlib
 import socketserver
-
 
 # Define the Server's port
 PORT = 8080
 
 # -- This is for preventing the error: "Port already in use"
 socketserver.TCPServer.allow_reuse_address = True
-
-
-def reading_file(filename):  # read_file() is the function read_fasta_data() from other practice
-    # -- Open and read the file
-    content = pathlib.Path(filename).read_text().split("\n")[1:]
-    content = "".join(content)
-    return content
 
 
 # Class with our Handler. It is a called derived from BaseHTTPRequestHandler
@@ -29,36 +20,30 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         print(self.requestline)
 
         # ----------------------------------------------------------------------------------
-        # Modifications for Practice 5
+        # Modifications for Exercise 1
 
         # Message to send back to the client:
-        FOLDER = 
-        if self.path == "/" or self.path == "/index.html":
-            file = "\index.html"
-            # Generating the response message
+        if self.path == "/":
+            contents = "Welcome to my server "
         else:
-            file = self.path
+            contents = "Resource not available"
 
-        try:
-            content = reading_file(FOLDER + file)  # read_file() is the function read_fasta_data() from other practice
-            # Generating the response message
+        # Generating the response message
+        if self.path == "/":
             self.send_response(200)  # -- Status line: OK!
-        except FileNotFoundError:
-            content = reading_file(FOLDER + "\error.html")
-            # Generating the response message
+        else:
             self.send_response(404)  # -- Status line: ERROR NOT FOUND
+        # ----------------------------------------------------------------------------------
 
         # Define the content-type header:
-        self.send_header('Content-Type', 'text/html')  # Changed form text\plain to text text\html
-        self.send_header('Content-Length', len(content.encode()))
-
-        # ----------------------------------------------------------------------------------
+        self.send_header('Content-Type', 'text/plain')
+        self.send_header('Content-Length', len(contents.encode()))
 
         # The header is finished
         self.end_headers()
 
         # Send the response message
-        self.wfile.write(content.encode())
+        self.wfile.write(contents.encode())
 
         return
 
