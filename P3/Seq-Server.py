@@ -26,7 +26,7 @@ def INFO(seq):
    C_PER = 100 * C_COUNTER / lenS
    T_PER = 100 * T_COUNTER / lenS
 
-   RES = f"Sequence: {seq},\n,Total length: {lenS},A: {A_COUNTER} ({A_PER}%),\n,C: {C_COUNTER} ({C_PER}%),\n,G: {G_COUNTER} ({G_PER}%),\n,T: {T_COUNTER} ({T_PER}%)"
+   RES = f"Sequence: {seq}\nTotal length: {lenS}\nA: {A_COUNTER} ({A_PER}%)\nC: {C_COUNTER} ({C_PER}%)\nG: {G_COUNTER} ({G_PER}%)\nT: {T_COUNTER} ({T_PER}%)\n"
    return RES
 
 def COMP(seq):
