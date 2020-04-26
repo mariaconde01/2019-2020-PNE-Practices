@@ -1,18 +1,21 @@
 import socketserver
 import http.server
+import termcolor
 import pathlib
 
 PORT = 8080
 #for preventing the error: "Port already in use"
 socketserver.TCPServer.allow_reuse_address = True
 
-def read_file(FILENAME):  # read_file() is the function read_fasta_data() from other practice
+def read_file(FILENAME):
+    # Open and read the file
    content = pathlib.Path(FILENAME).read_text().split("\n")[1:]
    file = "".join(content)
    return file
 
 
-# Class with our Handler
+# Class with our Handler .It is a called derived from BaseHTTPRequestHandler
+# It means that our class inheritates all his methods and properties
 class TestHandler(http.server.BaseHTTPRequestHandler):
 
    def do_GET(self):
@@ -20,9 +23,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
        in the HTTP protocol request"""
 
        # Print the request line
-       print(self.requestline)
-
-       # Modifications for Practice 5
+       termcolor.cprint(self.requestline,"green")
 
        # Message to send back to the client:
        FOLDER =r"C:\\Users\maria\PycharmProjects\2019-2020-PNE-Practices\P5\\"
@@ -33,7 +34,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
            FILE = self.path
 
        try:
-           contents = read_file(FOLDER + FILE)  # read_file() is the function read_fasta_data() from other practice
+           contents = read_file(FOLDER + FILE)
 
            self.send_response(200)  # -- Status line: OK!
        except FileNotFoundError:
@@ -53,7 +54,9 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
        return
 
+# ------------------------
 # - Server MAIN program
+# ------------------------
 # -- Set the new handler
 
 Handler = TestHandler
@@ -61,6 +64,9 @@ Handler = TestHandler
 # -- Open the socket server
 with socketserver.TCPServer(("", PORT), Handler) as httpd:
    print("Serving at PORT", PORT)
+
+   # -- Main loop: Attend the client. Whenever there is a new
+   # -- clint, the handler is called
 
    try:
        httpd.serve_forever()
