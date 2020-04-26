@@ -1,4 +1,5 @@
 import socket
+import termcolor
 from Seq1 import Seq
 
 IP = "127.0.0.1"
@@ -61,16 +62,20 @@ print("SEQ Server configured!")
 
 # --- MAIN LOOP
 while True:
+    # -- Waits for a client to connect
    print("Waiting for clients....")
    try:
        (cs, client_ip_port) = ls.accept()
+   # -- Server stopped manually
    except KeyboardInterrupt:
        print("Server Stopped!")
+       # -- Close the listening socket
        ls.close()
        exit()
    else:
 
-       # -- Receive the request message
+       # -- Read the message from the client
+       # -- The received message is in raw bytes
        req_raw = cs.recv(2000)
        req = req_raw.decode()
 
@@ -112,13 +117,15 @@ while True:
            print("GENE")
            res = GENE(argument)
        else:
-           print("Unknown command!!")
+           termcolor.cprint("Unknown command!!", "red")
            res = "Unknown command"
 
        # -- Send the response message
        res += "\n"
        print(res)
+       # Client console
        cs.send(res.encode())
+       # -- Close the data socket
        cs.close()
 
 

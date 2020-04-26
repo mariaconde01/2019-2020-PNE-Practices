@@ -1,8 +1,13 @@
 from Client0 import Client
 
+PRACTICE = 3
+EXERCISE = 7
+
+print(f"-----| Practice {PRACTICE}, Exercise {EXERCISE} |------")
+
+
 LIST_GENES=["U5","ADA","FRAT1","FXN","RNU6_269P"]
 
-print(f"-----| Practice 3, Exercise 7 |------")
 
 IP = "127.0.0.1"
 PORT = 8080
@@ -12,7 +17,7 @@ print(c)
 #PING
 print("* Testing PING...")
 print(c.talk("PING"))
-#GET
+#TEST GET
 print("* Testing GET...")
 for index in range(5):
    com = f"GET {index}"
@@ -22,17 +27,17 @@ seq = c.talk("GET 0")
 print("* Testing INFO...")
 com = f"INFO {seq}"
 print(c.talk(com))
-#COMP
+#TEST COMP
 print("* Testing COMP...")
 com = f"COMP {seq}"
 print(com)
 print(c.talk(com))
-#REV
+#TEST REV
 print("* Testing REV...")
 cmd = f"REV {seq}"
 print(com)
 print(c.talk(com))
-# Test GENE
+#TEST GENE
 print("* Testing GENE...")
 for GEN in LIST_GENES:
    com= f"GENE {GEN}"
