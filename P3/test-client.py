@@ -5,9 +5,7 @@ EXERCISE = 7
 
 print(f"-----| Practice {PRACTICE}, Exercise {EXERCISE} |------")
 
-
 LIST_GENES=["U5","ADA","FRAT1","FXN","RNU6_269P"]
-
 
 IP = "127.0.0.1"
 PORT = 8080

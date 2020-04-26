@@ -44,7 +44,6 @@ def GENE(GENE):
    seq = Seq(seq.read_fasta(FOLDER + GENE + TXT))
    return str(seq)
 
-
 # ------ Configure the server
 # -- Listening socket
 ls = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
