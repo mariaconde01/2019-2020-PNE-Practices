@@ -1,5 +1,6 @@
 import http.server
 import socketserver
+import termcolor
 from pathlib import Path
 from Seq1 import Seq
 
@@ -18,7 +19,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
    def do_GET(self):
        """This method is called whenever the client invokes the GET method
        in the HTTP protocol request"""
-       print(self.requestline)
+       termcolor.cprint(self.requestline,"green")
        req_line = self.requestline.split(' ')
        path = req_line[1]
        arguments = path.split('?')
@@ -81,7 +82,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
            </p><br><br><a href="/">Main page</a></body></html>"""
            cod = 200
 
-           # Generating the response message
+        # Generating the response message
        self.send_response(cod)  # -- Status line: OK!
 
        # Define the content-type header:
@@ -108,7 +109,7 @@ with socketserver.TCPServer(("", PORT), Handler) as httpd:
    print("Serving at PORT", PORT)
 
    # -- Main loop: Attend the client. Whenever there is a new
-   # -- clint, the handler is called
+   # -- client, the handler is called
    try:
        httpd.serve_forever()
    except KeyboardInterrupt:
