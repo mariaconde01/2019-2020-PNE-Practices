@@ -4,7 +4,8 @@ print("-----| Practice 1, Exercise 2 |------")
 
 # - Crear una secuencia nula
 s1= Seq()
- # - Crear una secuencia válida
+
+# - Crear una secuencia válida
 s2= Seq("ACTGA")
 
 # -- Printing the objects
