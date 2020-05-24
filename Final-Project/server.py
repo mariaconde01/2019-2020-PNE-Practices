@@ -2,6 +2,7 @@ import http.server
 import http.client
 import socketserver
 from pathlib import Path
+import termcolor
 import json
 
 PORT = 8080
@@ -18,7 +19,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
       """This method is called whenever the client invokes the GET method
       in the HTTP protocol request"""
 
-      print(self.requestline)
+      termcolor.cprint(self.requestline, "green")
 
       # We get the first request line and then the path, goes after /. We get the arguments that go after the ? symbol
       req_line = self.requestline.split(' ')
@@ -51,6 +52,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               get_value = arguments[1]
               couple = get_value.split('?')
               limit, limit_value = couple[0].split("=")
+              limit_value = int(limit_value)
               if limit_value <= 0:
                   content = Path("error.html").read_text()
               if limit_value > 0:
@@ -105,7 +107,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                       <h2> The names of the chromosomes are:</h2>"""
               get_value = arguments[1]
               couple = get_value.split('?')
-              karyotype, specie = couple[0].split("=")
+              karyotype, specie_name = couple[0].split("=")
+              specie= specie_name.replace("+", "_")
               conn = http.client.HTTPConnection(SERVER)
               REQ = ENDP + specie + PRMS
               try:
@@ -118,7 +121,6 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               content_json = json.loads(content_json)
               kdata = content_json["karyotype"]
               for chromo in kdata:
-                  print(chromo)
                   content += f"""<p> - {chromo} </p>"""
               cod = 200
               content += f"""<a href="/">Index </a></body></html>"""
@@ -129,7 +131,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               PRMS = '?content-type=application/json'
               get_value = arguments[1]
               couple = get_value.split('&')
-              name, specie = couple[0].split("=")
+              name, specie_name = couple[0].split("=")
+              specie=specie_name.replace("+", "%20")
               index, chromosome = couple[1].split("=")
               conn = http.client.HTTPConnection(SERVER)
               REQ = ENDP + specie + PRMS
