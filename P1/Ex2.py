@@ -1,5 +1,6 @@
 from Seq1 import *
 
+
 print("-----| Practice 1, Exercise 2 |------")
 
 # - Crear una secuencia nula
