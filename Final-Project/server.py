@@ -3,25 +3,28 @@ import http.client
 import socketserver
 from pathlib import Path
 import json
-# Port
+
 PORT = 8080
-# -- This is for preventing the error: "Port already in use"
+
+# This is for preventing the error: "Port already in use"
 socketserver.TCPServer.allow_reuse_address = True
 
+# Class with our Handler. It is a called derived from BaseHTTPRequestHandler
+# It means that our class inheritates all his methods and properties
 class TestHandler(http.server.BaseHTTPRequestHandler):
 
   def do_GET(self):
 
-      """This method
-      is called whenever the client invokes the GET method
+      """This method is called whenever the client invokes the GET method
       in the HTTP protocol request"""
 
       print(self.requestline)
+
       # We get the first request line and then the path, goes after /. We get the arguments that go after the ? symbol
       req_line = self.requestline.split(' ')
       path = req_line[1]
       arguments = path.split('?')
-      # Action is the first argument
+      # first argument
       option = arguments[0]
       content = Path('error.html').read_text()
       cod = 404
@@ -48,54 +51,58 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               get_value = arguments[1]
               couple = get_value.split('?')
               limit, limit_value = couple[0].split("=")
-              conn = http.client.HTTPConnection(SERVER)
-              try:
-                  conn.request("GET", REQ)
-              except ConnectionRefusedError:
-                  print("ERROR! Cannot connect to the Server")
-                  exit()
-              # -- Read the response message from the server
-              answer = conn.getresponse()
-              # -- Read the response's body
-              content_json = answer.read().decode()
-              content_json = json.loads(content_json)
-              limit = content_json["species"]
-              limit_value = int(limit_value)
-              if limit_value > len(limit):
-                  content = """<!DOCTYPE html>
-                  <html lang = "en">
-                  <head>
-                  <meta charset = "utf-8" >
-                  <title>Error</title >
-                  </head>
-                  <body style="background-color: red;">
-                  <h1>Index Error </h1>
-                  <p>Index out of range. You must introduce correct value</p>
-                  <a href="/">Index</a></body></html>"""
-              else:
-                  for i in limit:
-                      display_name = i["display_name"]
-                      list_Species.append(display_name)
-                      if len(list_Species) == limit_value:
-                          content += f"""<p>The number of species you selected are: {limit_value} </p>
-                          <p>The species are: </p>"""
-                          for display_name in list_Species:
-                              content += f"""<p> - {display_name} </p>"""
-                  content += f"""<a href="/">Main page</a></body></html>"""
-              cod = 200
+              if limit_value <= 0:
+                  content = Path("error.html").read_text()
+              if limit_value > 0:
+                  content += f"""<p>The number of species you selected are: {limit_value} </p>"""
+                  conn = http.client.HTTPConnection(SERVER)
+                  try:
+                      conn.request("GET", REQ)
+                  except ConnectionRefusedError:
+                      print("ERROR! Cannot connect to the Server")
+                      exit()
+                  # Read the response message from the server
+                  answer = conn.getresponse()
+                  # Read the response's body
+                  content_json = answer.read().decode()
+                  content_json = json.loads(content_json)
+                  limit = content_json["species"]
+                  limit_value = int(limit_value)
+                  if limit_value > len(limit):
+                      content = """<!DOCTYPE html>
+                              <html lang = "en">
+                              <head>
+                              <meta charset = "utf-8" >
+                              <title>Error</title >
+                              </head>
+                              <body style="background-color: red;">
+                              <h1>Index Error </h1>
+                              <p>Index out of range. You must introduce correct value</p>
+                              <a href="/">Index</a></body></html>"""
+                  else:
+                      for i in limit:
+                          display_name = i["display_name"]
+                          list_Species.append(display_name)
+                          if len(list_Species) == limit_value:
+                              content += f"""<p>The number of species you selected are: {limit_value} </p>
+                                      <p>The species are: </p>"""
+                              for display_name in list_Species:
+                                  content += f"""<p> - {display_name} </p>"""
+                      content += f"""<a href="/">Main page</a></body></html>"""
+                      cod = 200
 
           elif option == "/karyotype":
               SERVER = 'rest.ensembl.org'
               ENDP = 'info/assembly/'
               PRMS = '?content-type=application/json'
               content = f"""<!DOCTYPE html>
-              <html lang = "en">
-              <head>
-              <meta charset = "utf-8">
-               <title> Karyotype </title >
-              </head >
-              <body>
-              <h2> The names of the chromosomes are:</h2>"""
+                      <html lang = "en">
+                      <head>
+                      <meta charset = "utf-8">
+                       <title> Karyotype </title >
+                      </head >
+                      <body>
+                      <h2> The names of the chromosomes are:</h2>"""
               get_value = arguments[1]
               couple = get_value.split('?')
               karyotype, specie = couple[0].split("=")
@@ -140,7 +147,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               for chromo in chromo_data:
                   name= chromo["name"]
                   for i in name:
-                      if i ==str(chromosome):
+                      if i == str(chromosome):
                           l = chromo["length"]
                           content = f"""<!DOCTYPE html><html lang = "en"><head><meta charset = "utf-8" ><title> Length Chromosome</title >
                           </head ><body><h2> The length of the chromosome is: <p> - {l} </p><a href="/">Index </a></body></html>"""
@@ -163,6 +170,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
       self.wfile.write(str.encode(content))
 
       return
+
 
 # ------------------------
 # - Server MAIN program
