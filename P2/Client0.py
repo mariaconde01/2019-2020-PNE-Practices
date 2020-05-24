@@ -1,4 +1,5 @@
 import socket
+import termcolor
 
 #clase para enviar mensajes fácilmente al servidor
 
